@@ -1,6 +1,11 @@
 """Financial Modeling Prep API Wrapper.
 
-An API key may be obtained here: https://site.financialmodelingprep.com/.
+An API key is needed and may be obtained at the [FMP website](https://site.financialmodelingprep.com/).
+
+The package may be installed with the command: 
+```
+pip install fmp_api_python
+```
 """
 
 
