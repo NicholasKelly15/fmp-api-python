@@ -61,7 +61,9 @@ class FMPClient:
             content = list(csv.reader(response.content.decode('utf-8').splitlines(), delimiter=','))
 
             if (return_type == 'df'):
-                return pd.DataFrame(list(content))
+                df = pd.DataFrame(list(content), )
+                df = df.rename(columns=df.iloc[0], inplace=False).loc[1:]
+                return df
             elif (return_type == 'json'):
                 raise Exception('API returned csv format, unable to convert to JSON')
 
@@ -409,33 +411,76 @@ class FMPClient:
 
     """------- STOCK LIST -------"""
 
-    def symbols_list(self):
+    def symbols_list(self, return_type='json'):
+        """Returns a list of available symbols with their full names, exchanges, and prices.
+        
+        Args:
+            return_type (str): 'json' | 'df'.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the symbols list.
+        """
         endpoint = r'{}/stock/list'.format(BASE_URL_V3)
-        return requests.get(url=endpoint, params=self._empty_payload).json()
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type='json', return_type=return_type)
 
-    def tradable_symbols_list(self):
+    def tradable_symbols_list(self, return_type='json'):
+        """Returns a list of tradable symbols.
+        
+        Args:
+            return_type (str): 'json' | 'df'.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the symbols list.
+        """
         endpoint = r'{}/available-traded/list'.format(BASE_URL_V3)
-        return requests.get(url=endpoint, params=self._empty_payload).json()
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type='json', return_type=return_type)
 
-    def etf_list(self):
+    def etf_list(self, return_type='json'):
+        """Returns a list of available etf's, a subset of the symbols list.
+        
+        Args:
+            return_type (str): 'json' | 'df'.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the etf list.
+        """
         endpoint = r'{}/etf/list'.format(BASE_URL_V3)
-        return requests.get(url=endpoint, params=self._empty_payload).json()
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type='json', return_type=return_type)
 
     """------- BULK AND BATCH -------"""
 
-    def batch_quote_prices(self, symbols_list):
-        endpoint = r'{}/quote/'.format(BASE_URL_V3)
-        for symbol in symbols_list:
-            endpoint = endpoint + symbol + ','
-        return requests.get(url=endpoint, params=self._empty_payload).json()
+    def batch_quote_prices(self, symbols_list, return_type='json'):
+        """Returns a list of prices for the given symbols.
+        
+        Args:
+            return_type (str): 'json' | 'df'.
+
+        Returns: 
+            Either a list or pandas.DataFrame with quotes.
+        """
+        endpoint = r'{}/quote/{}'.format(BASE_URL_V3, self._merge_symbols_for_url(symbols_list))
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type='json', return_type=return_type)
 
     def batch_request_end_of_day_prices(self, date):
+        """Returns a list of prices for the given symbols.
+        
+        Args:
+            return_type (str): 'json' | 'df'.
+
+        Returns: 
+            A pandas.DataFrame with quotes.
+        """
         endpoint = r'{}/batch-request-end-of-day-prices'.format(BASE_URL_V4)
         payload = {
             'apikey': self._api_key, 
             'date': date
         }
-        return requests.get(url=endpoint, params=payload)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type='csv', return_type='df')
 
     """------- MARKET INDEXES -------"""
 

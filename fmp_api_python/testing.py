@@ -1,4 +1,5 @@
 from time import perf_counter
+from urllib import response
 
 from pandas import json_normalize
 import pandas as pd
@@ -13,8 +14,8 @@ import requests
 
 client = FMPClient()
 
-# response = client.historical_price_interval('AAPL', start_date='2020-01-01', return_type='df')
-response = client.historical_price_full('AAPL', 'df')
+# response = client.batch_request_end_of_day_prices('2020-01-01')
+response = client.historical_price_full('AAPL', return_type='df')
 
 print(response)
 print(type(response))
