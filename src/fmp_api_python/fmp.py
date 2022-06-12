@@ -7,9 +7,7 @@ An API key may be obtained here: https://site.financialmodelingprep.com/.
 import requests
 import os
 import csv
-import json
 import pandas as pd
-from tenacity import retry_unless_exception_type
 
 from constants import BASE_URL_V3, BASE_URL_V4
 from constants import TODAY

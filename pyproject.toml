@@ -1,0 +1,22 @@
+# pyproject.toml
+
+[build-system]
+requires        = ["setuptools>=61.0.0", "wheel"]
+build-backend   = "setuptools.build_meta"
+
+[project]
+name = "fmp_api_python"
+version = "1.0.0"
+description = "Financial Modeling Prep API Wrapper"
+readme = "README.md"
+authors = [{name = "Nicholas Kelly", email = "nicholas.victor.kelly@gmail.com"}]
+license = {file = "LICENSE"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3"
+]
+keywords = ["fmp", "api", "wrapper", "finance", "stocks"]
+dependencies = [
+    "pandas"
+]
