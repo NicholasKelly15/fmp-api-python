@@ -14,8 +14,8 @@ import os
 import csv
 import pandas as pd
 
-from constants import BASE_URL_V3, BASE_URL_V4
-from constants import TODAY
+from fmp_api_python.constants import BASE_URL_V3, BASE_URL_V4
+from fmp_api_python.constants import TODAY
 
 
 class FMPClient:

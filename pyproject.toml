@@ -20,3 +20,6 @@ keywords = ["fmp", "api", "wrapper", "finance", "stocks"]
 dependencies = [
     "pandas"
 ]
+
+[project.urls]
+Homepage = "https://github.com/NicholasKelly15/fmp-api-python"
