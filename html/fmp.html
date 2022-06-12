@@ -1,0 +1,1846 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>fmp API documentation</title>
+<meta name="description" content="Financial Modeling Prep API Wrapper …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>fmp</code></h1>
+</header>
+<section id="section-intro">
+<p>Financial Modeling Prep API Wrapper.</p>
+<p>An API key may be obtained here: <a href="https://site.financialmodelingprep.com/.">https://site.financialmodelingprep.com/.</a></p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Financial Modeling Prep API Wrapper.
+
+An API key may be obtained here: https://site.financialmodelingprep.com/.
+&#34;&#34;&#34;
+
+
+import requests
+import os
+import csv
+import pandas as pd
+
+from constants import BASE_URL_V3, BASE_URL_V4
+from constants import TODAY
+
+
+class FMPClient:
+    &#34;&#34;&#34;Python wrapper for the Financial Modeling Prep (FMP) API.
+    
+    Makes call requests to the FMP API and returns the results. Currently, 
+    only some of the endpoints under the personal plan are implemented, and none 
+    from the professional or enterprise versions. Most requests can have the response
+    be formatted either in the original json or as a pandas.DataFrame, although 
+    some enpoints do not have support for a DataFrame return.
+
+    In order to use the API, an API key must be used. This can either be passed into 
+    the constructor or added to the environmental variables under the name FMP_API_KEY.
+
+    Args:
+        api_key (str): FMP API key.
+    &#34;&#34;&#34;
+
+
+    def __init__(self, api_key=None):
+        self._api_key = api_key or os.getenv(&#39;FMP_API_KEY&#39;)
+        self._empty_payload = {
+            &#39;apikey&#39;: self._api_key
+        }
+
+    def _convert_response(self, response, response_type, return_type):
+        &#34;&#34;&#34;Converts the response from the API into the given response type.
+        
+        Args:
+            response (requests.models.response): API response from the requests.get method.
+            response_type (str): &#39;json&#39; | &#39;csv&#39; depending on the type of API response.
+            return_type (str): &#39;json&#39; | &#39;df&#39; depending on the desired return format.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the response content.
+        &#34;&#34;&#34;
+        if (response_type == &#39;json&#39;):
+            content = response.json()
+
+            if (return_type == &#39;json&#39;):
+                return content
+            elif (return_type == &#39;df&#39;):
+                return pd.DataFrame(content)
+
+        elif (response_type == &#39;csv&#39;):
+            content = list(csv.reader(response.content.decode(&#39;utf-8&#39;).splitlines(), delimiter=&#39;,&#39;))
+
+            if (return_type == &#39;df&#39;):
+                df = pd.DataFrame(list(content), )
+                df = df.rename(columns=df.iloc[0], inplace=False).loc[1:]
+                return df
+            elif (return_type == &#39;json&#39;):
+                raise Exception(&#39;API returned csv format, unable to convert to JSON&#39;)
+
+    def _merge_symbols_for_url(self, symbols):
+        if (type(symbols) == str):
+            return symbols
+        elif (type(symbols) == list):
+            return_string = &#39;&#39;
+            for symbol in symbols:
+                return_string += symbol + &#39;,&#39;
+            return return_string
+        else:
+            raise Exception(&#39;Unknown type given for symbols.&#39;)
+
+    &#34;&#34;&#34;------- STOCK FUNDAMENTALS -------&#34;&#34;&#34;
+
+    def financial_statement_symbol_lists(self, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;List of symbols that have financial statements.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39; depending on the desired return format.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stock symbols.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/financial-statement-symbol-lists&#39;.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def income_statement(self, symbol, period=&#39;annual&#39;, limit=None, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;List of historical income statements for the symbol.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            period (str): &#39;annual&#39; | &#39;quarter&#39;.
+            limit (int): Maximum number of periods to return.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the income statements.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/income-statement/{}&#39;.format(BASE_URL_V3, symbol)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;period&#39;: period
+        }
+        if limit is not None:
+            payload[&#39;limit&#39;] = limit
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def balance_sheet_statement(self, symbol, period=&#39;annual&#39;, limit=None, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;List of historical balance sheets for the symbol.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            period (str): &#39;annual&#39; | &#39;quarter&#39;.
+            limit (int): Maximum number of periods to return.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the balance sheets.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/balance-sheet-statement/{}&#39;.format(BASE_URL_V3, symbol)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;period&#39;: period
+        }
+        if limit is not None:
+            payload[&#39;limit&#39;] = limit
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def cash_flow_statement(self, symbol, period=&#39;annual&#39;, limit=None, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;List of historical balance sheets for the symbol.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            period (str): &#39;annual&#39; | &#39;quarter&#39;.
+            limit (int): Maximum number of periods to return.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the cash flow statements.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/cash-flow-statement/{}&#39;.format(BASE_URL_V3, symbol)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;period&#39;: period
+        }
+        if limit is not None:
+            payload[&#39;limit&#39;] = limit
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def financial_report_dates(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns dates and links to data.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the report dates.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/financial-reports-dates&#39;.format(BASE_URL_V4)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;symbol&#39;: symbol
+        }
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    &#34;&#34;&#34;------- STOCK FUNDAMENTAL ANALYSIS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- INSTITUTIONAL STOCK OWNERSHIP -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- ESG SCORE -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- PRICE TARGET -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- UPGRADES &amp; DOWNGRADES -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- HISTORICAL ETF AND MUTUAL FUND HOLDINGS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- HISTORICAL NUMBER OF EMPLOYEES -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- EXECUTIVE COMPENSATION -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- INDIVIDUAL BENEFICIAL OWNERSHIP -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- STOCK CALENDARS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- STOCK LOOK UP TOOL -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- COMPANY INFORMATION -------&#34;&#34;&#34;
+
+    def company_profile(self, symbol, return_type):
+        &#34;&#34;&#34;General information about a company.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the company&#39;s profile information.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/profile/{}&#39;.format(BASE_URL_V3, symbol)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def key_executives(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Information about company executives.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the executive information.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/key-executives/{}&#39;.format(BASE_URL_V3, symbol)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def market_capitalization(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the symbols market capitalization.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the market cap.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/market-capitalization/{}&#39;.format(BASE_URL_V3, symbol)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def historical_market_capitalization(self, symbol, limit=None, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the history of the company&#39;s market capitalization.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            limit (int): Number of days returned.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the historicals capitalizations.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/historical-market-capitalization/{}&#39;.format(BASE_URL_V3, symbol)
+        payload = {
+            &#39;apikey&#39;: self._api_key
+        }
+        if limit is not None:
+            payload[&#39;limit&#39;] = limit
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def company_outlook(self, symbol):
+        &#34;&#34;&#34;Returns a variety of current metrics on the given company.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+
+        Returns: 
+            A dict with the company&#39;s metrics.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/company-outlook&#39;.format(BASE_URL_V4)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;symbol&#39;: symbol
+        }
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=&#39;json&#39;)
+
+    def stock_peers(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Stock peers based on sector, exchange and market cap.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stocks peers.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/stock_peers&#39;.format(BASE_URL_V4)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;symbol&#39;: symbol
+        }
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def is_the_market_open(self):
+        &#34;&#34;&#34;Returns the hours that the market is open and which markets currently are.
+        
+        Returns: 
+            A dict with information about the market hours.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/is-the-market-open&#39;.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=&#39;json&#39;)
+
+    def company_core_information(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns a company&#39;s core information.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stocks peers.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/company-core-information&#39;.format(BASE_URL_V4)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;symbol&#39;: symbol
+        }
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    &#34;&#34;&#34;------- STOCK NEWS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- MARKET PERFORMANCE -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- ADVANCED DATA -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- STOCK STATISTICS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- INSIDER TRADING -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- ECONOMICS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- STOCK PRICE -------&#34;&#34;&#34;
+
+    def quote(self, symbols, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the most recent price quote for one or more stock symbols.
+        
+        Args:
+            symbols (str | str list): Stock ticker symbol or symbols.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stock quotes.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/quote/{}&#39;.format(BASE_URL_V3, self._merge_symbols_for_url(symbols))
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def otc_quote(self, symbols, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the most recent price quote for one or more OTC stock symbols.
+        
+        Args:
+            symbols (str | str list): Stock ticker symbol or symbols.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stock quotes.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/otc/real-time-price/{}&#39;.format(BASE_URL_V3, self._merge_symbols_for_url(symbols))
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def historical_price_interval(self, symbol, start_date, end_date=TODAY, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the stocks daily history from start_date to end_date.
+        
+        Args:
+            symbols (str | str list): Stock ticker symbol or symbols.
+            start_date (str): Start date of the range.
+            end_date (str): End date of the range.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stock history.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/historical-price-full/{}&#39;.format(BASE_URL_V3, symbol)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;from&#39;: start_date, 
+            &#39;to&#39;: end_date
+        }
+        response = requests.get(url=endpoint, params=payload)
+        historical_json = response.json()[&#39;historical&#39;]
+        if (return_type == &#39;json&#39;):
+            return response.json()
+        elif (return_type == &#39;df&#39;):
+            return pd.DataFrame(historical_json)
+
+    def historical_price_full(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the full daily history for a symbol.
+        
+        Args:
+            symbols (str | str list): Stock ticker symbol or symbols.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stock history.
+        &#34;&#34;&#34;
+        return self.historical_price_interval(symbol, &#39;1900-01-01&#39;, TODAY, return_type=return_type)
+
+    &#34;&#34;&#34;------- FUND HOLDINGS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- WEBSOCKET -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- STOCK LIST -------&#34;&#34;&#34;
+
+    def symbols_list(self, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns a list of available symbols with their full names, exchanges, and prices.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the symbols list.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/stock/list&#39;.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def tradable_symbols_list(self, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns a list of tradable symbols.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the symbols list.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/available-traded/list&#39;.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def etf_list(self, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns a list of available etf&#39;s, a subset of the symbols list.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the etf list.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/etf/list&#39;.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    &#34;&#34;&#34;------- BULK AND BATCH -------&#34;&#34;&#34;
+
+    def batch_quote_prices(self, symbols_list, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns a list of prices for the given symbols.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with quotes.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/quote/{}&#39;.format(BASE_URL_V3, self._merge_symbols_for_url(symbols_list))
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def batch_request_end_of_day_prices(self, date):
+        &#34;&#34;&#34;Returns a list of prices for the given symbols.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            A pandas.DataFrame with quotes.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/batch-request-end-of-day-prices&#39;.format(BASE_URL_V4)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;date&#39;: date
+        }
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;csv&#39;, return_type=&#39;df&#39;)
+
+    &#34;&#34;&#34;------- MARKET INDEXES -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- EURONEXT -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- TSX -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- CRYPTO &amp; FOREX &amp; COMMODITIES -------&#34;&#34;&#34;</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="fmp.FMPClient"><code class="flex name class">
+<span>class <span class="ident">FMPClient</span></span>
+<span>(</span><span>api_key=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Python wrapper for the Financial Modeling Prep (FMP) API.</p>
+<p>Makes call requests to the FMP API and returns the results. Currently,
+only some of the endpoints under the personal plan are implemented, and none
+from the professional or enterprise versions. Most requests can have the response
+be formatted either in the original json or as a pandas.DataFrame, although
+some enpoints do not have support for a DataFrame return.</p>
+<p>In order to use the API, an API key must be used. This can either be passed into
+the constructor or added to the environmental variables under the name FMP_API_KEY.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>api_key</code></strong> :&ensp;<code>str</code></dt>
+<dd>FMP API key.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FMPClient:
+    &#34;&#34;&#34;Python wrapper for the Financial Modeling Prep (FMP) API.
+    
+    Makes call requests to the FMP API and returns the results. Currently, 
+    only some of the endpoints under the personal plan are implemented, and none 
+    from the professional or enterprise versions. Most requests can have the response
+    be formatted either in the original json or as a pandas.DataFrame, although 
+    some enpoints do not have support for a DataFrame return.
+
+    In order to use the API, an API key must be used. This can either be passed into 
+    the constructor or added to the environmental variables under the name FMP_API_KEY.
+
+    Args:
+        api_key (str): FMP API key.
+    &#34;&#34;&#34;
+
+
+    def __init__(self, api_key=None):
+        self._api_key = api_key or os.getenv(&#39;FMP_API_KEY&#39;)
+        self._empty_payload = {
+            &#39;apikey&#39;: self._api_key
+        }
+
+    def _convert_response(self, response, response_type, return_type):
+        &#34;&#34;&#34;Converts the response from the API into the given response type.
+        
+        Args:
+            response (requests.models.response): API response from the requests.get method.
+            response_type (str): &#39;json&#39; | &#39;csv&#39; depending on the type of API response.
+            return_type (str): &#39;json&#39; | &#39;df&#39; depending on the desired return format.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the response content.
+        &#34;&#34;&#34;
+        if (response_type == &#39;json&#39;):
+            content = response.json()
+
+            if (return_type == &#39;json&#39;):
+                return content
+            elif (return_type == &#39;df&#39;):
+                return pd.DataFrame(content)
+
+        elif (response_type == &#39;csv&#39;):
+            content = list(csv.reader(response.content.decode(&#39;utf-8&#39;).splitlines(), delimiter=&#39;,&#39;))
+
+            if (return_type == &#39;df&#39;):
+                df = pd.DataFrame(list(content), )
+                df = df.rename(columns=df.iloc[0], inplace=False).loc[1:]
+                return df
+            elif (return_type == &#39;json&#39;):
+                raise Exception(&#39;API returned csv format, unable to convert to JSON&#39;)
+
+    def _merge_symbols_for_url(self, symbols):
+        if (type(symbols) == str):
+            return symbols
+        elif (type(symbols) == list):
+            return_string = &#39;&#39;
+            for symbol in symbols:
+                return_string += symbol + &#39;,&#39;
+            return return_string
+        else:
+            raise Exception(&#39;Unknown type given for symbols.&#39;)
+
+    &#34;&#34;&#34;------- STOCK FUNDAMENTALS -------&#34;&#34;&#34;
+
+    def financial_statement_symbol_lists(self, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;List of symbols that have financial statements.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39; depending on the desired return format.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stock symbols.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/financial-statement-symbol-lists&#39;.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def income_statement(self, symbol, period=&#39;annual&#39;, limit=None, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;List of historical income statements for the symbol.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            period (str): &#39;annual&#39; | &#39;quarter&#39;.
+            limit (int): Maximum number of periods to return.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the income statements.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/income-statement/{}&#39;.format(BASE_URL_V3, symbol)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;period&#39;: period
+        }
+        if limit is not None:
+            payload[&#39;limit&#39;] = limit
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def balance_sheet_statement(self, symbol, period=&#39;annual&#39;, limit=None, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;List of historical balance sheets for the symbol.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            period (str): &#39;annual&#39; | &#39;quarter&#39;.
+            limit (int): Maximum number of periods to return.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the balance sheets.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/balance-sheet-statement/{}&#39;.format(BASE_URL_V3, symbol)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;period&#39;: period
+        }
+        if limit is not None:
+            payload[&#39;limit&#39;] = limit
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def cash_flow_statement(self, symbol, period=&#39;annual&#39;, limit=None, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;List of historical balance sheets for the symbol.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            period (str): &#39;annual&#39; | &#39;quarter&#39;.
+            limit (int): Maximum number of periods to return.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the cash flow statements.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/cash-flow-statement/{}&#39;.format(BASE_URL_V3, symbol)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;period&#39;: period
+        }
+        if limit is not None:
+            payload[&#39;limit&#39;] = limit
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def financial_report_dates(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns dates and links to data.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the report dates.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/financial-reports-dates&#39;.format(BASE_URL_V4)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;symbol&#39;: symbol
+        }
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    &#34;&#34;&#34;------- STOCK FUNDAMENTAL ANALYSIS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- INSTITUTIONAL STOCK OWNERSHIP -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- ESG SCORE -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- PRICE TARGET -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- UPGRADES &amp; DOWNGRADES -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- HISTORICAL ETF AND MUTUAL FUND HOLDINGS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- HISTORICAL NUMBER OF EMPLOYEES -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- EXECUTIVE COMPENSATION -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- INDIVIDUAL BENEFICIAL OWNERSHIP -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- STOCK CALENDARS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- STOCK LOOK UP TOOL -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- COMPANY INFORMATION -------&#34;&#34;&#34;
+
+    def company_profile(self, symbol, return_type):
+        &#34;&#34;&#34;General information about a company.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the company&#39;s profile information.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/profile/{}&#39;.format(BASE_URL_V3, symbol)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def key_executives(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Information about company executives.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the executive information.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/key-executives/{}&#39;.format(BASE_URL_V3, symbol)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def market_capitalization(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the symbols market capitalization.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the market cap.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/market-capitalization/{}&#39;.format(BASE_URL_V3, symbol)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def historical_market_capitalization(self, symbol, limit=None, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the history of the company&#39;s market capitalization.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            limit (int): Number of days returned.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the historicals capitalizations.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/historical-market-capitalization/{}&#39;.format(BASE_URL_V3, symbol)
+        payload = {
+            &#39;apikey&#39;: self._api_key
+        }
+        if limit is not None:
+            payload[&#39;limit&#39;] = limit
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def company_outlook(self, symbol):
+        &#34;&#34;&#34;Returns a variety of current metrics on the given company.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+
+        Returns: 
+            A dict with the company&#39;s metrics.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/company-outlook&#39;.format(BASE_URL_V4)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;symbol&#39;: symbol
+        }
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=&#39;json&#39;)
+
+    def stock_peers(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Stock peers based on sector, exchange and market cap.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stocks peers.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/stock_peers&#39;.format(BASE_URL_V4)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;symbol&#39;: symbol
+        }
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def is_the_market_open(self):
+        &#34;&#34;&#34;Returns the hours that the market is open and which markets currently are.
+        
+        Returns: 
+            A dict with information about the market hours.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/is-the-market-open&#39;.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=&#39;json&#39;)
+
+    def company_core_information(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns a company&#39;s core information.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stocks peers.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/company-core-information&#39;.format(BASE_URL_V4)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;symbol&#39;: symbol
+        }
+        response = requests.get(url=endpoint, params=payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    &#34;&#34;&#34;------- STOCK NEWS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- MARKET PERFORMANCE -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- ADVANCED DATA -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- STOCK STATISTICS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- INSIDER TRADING -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- ECONOMICS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- STOCK PRICE -------&#34;&#34;&#34;
+
+    def quote(self, symbols, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the most recent price quote for one or more stock symbols.
+        
+        Args:
+            symbols (str | str list): Stock ticker symbol or symbols.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stock quotes.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/quote/{}&#39;.format(BASE_URL_V3, self._merge_symbols_for_url(symbols))
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def otc_quote(self, symbols, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the most recent price quote for one or more OTC stock symbols.
+        
+        Args:
+            symbols (str | str list): Stock ticker symbol or symbols.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stock quotes.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/otc/real-time-price/{}&#39;.format(BASE_URL_V3, self._merge_symbols_for_url(symbols))
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def historical_price_interval(self, symbol, start_date, end_date=TODAY, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the stocks daily history from start_date to end_date.
+        
+        Args:
+            symbols (str | str list): Stock ticker symbol or symbols.
+            start_date (str): Start date of the range.
+            end_date (str): End date of the range.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stock history.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/historical-price-full/{}&#39;.format(BASE_URL_V3, symbol)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;from&#39;: start_date, 
+            &#39;to&#39;: end_date
+        }
+        response = requests.get(url=endpoint, params=payload)
+        historical_json = response.json()[&#39;historical&#39;]
+        if (return_type == &#39;json&#39;):
+            return response.json()
+        elif (return_type == &#39;df&#39;):
+            return pd.DataFrame(historical_json)
+
+    def historical_price_full(self, symbol, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Gets the full daily history for a symbol.
+        
+        Args:
+            symbols (str | str list): Stock ticker symbol or symbols.
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the stock history.
+        &#34;&#34;&#34;
+        return self.historical_price_interval(symbol, &#39;1900-01-01&#39;, TODAY, return_type=return_type)
+
+    &#34;&#34;&#34;------- FUND HOLDINGS -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- WEBSOCKET -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- STOCK LIST -------&#34;&#34;&#34;
+
+    def symbols_list(self, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns a list of available symbols with their full names, exchanges, and prices.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the symbols list.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/stock/list&#39;.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def tradable_symbols_list(self, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns a list of tradable symbols.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the symbols list.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/available-traded/list&#39;.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def etf_list(self, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns a list of available etf&#39;s, a subset of the symbols list.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the etf list.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/etf/list&#39;.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    &#34;&#34;&#34;------- BULK AND BATCH -------&#34;&#34;&#34;
+
+    def batch_quote_prices(self, symbols_list, return_type=&#39;json&#39;):
+        &#34;&#34;&#34;Returns a list of prices for the given symbols.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            Either a list or pandas.DataFrame with quotes.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/quote/{}&#39;.format(BASE_URL_V3, self._merge_symbols_for_url(symbols_list))
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)
+
+    def batch_request_end_of_day_prices(self, date):
+        &#34;&#34;&#34;Returns a list of prices for the given symbols.
+        
+        Args:
+            return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+        Returns: 
+            A pandas.DataFrame with quotes.
+        &#34;&#34;&#34;
+        endpoint = r&#39;{}/batch-request-end-of-day-prices&#39;.format(BASE_URL_V4)
+        payload = {
+            &#39;apikey&#39;: self._api_key, 
+            &#39;date&#39;: date
+        }
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._convert_response(response, response_type=&#39;csv&#39;, return_type=&#39;df&#39;)
+
+    &#34;&#34;&#34;------- MARKET INDEXES -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- EURONEXT -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- TSX -------&#34;&#34;&#34;
+
+    &#34;&#34;&#34;------- CRYPTO &amp; FOREX &amp; COMMODITIES -------&#34;&#34;&#34;</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="fmp.FMPClient.balance_sheet_statement"><code class="name flex">
+<span>def <span class="ident">balance_sheet_statement</span></span>(<span>self, symbol, period='annual', limit=None, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List of historical balance sheets for the symbol.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+<dt><strong><code>period</code></strong> :&ensp;<code>str</code></dt>
+<dd>'annual' | 'quarter'.</dd>
+<dt><strong><code>limit</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum number of periods to return.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the balance sheets.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def balance_sheet_statement(self, symbol, period=&#39;annual&#39;, limit=None, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;List of historical balance sheets for the symbol.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+        period (str): &#39;annual&#39; | &#39;quarter&#39;.
+        limit (int): Maximum number of periods to return.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the balance sheets.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/balance-sheet-statement/{}&#39;.format(BASE_URL_V3, symbol)
+    payload = {
+        &#39;apikey&#39;: self._api_key, 
+        &#39;period&#39;: period
+    }
+    if limit is not None:
+        payload[&#39;limit&#39;] = limit
+    response = requests.get(url=endpoint, params=payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.batch_quote_prices"><code class="name flex">
+<span>def <span class="ident">batch_quote_prices</span></span>(<span>self, symbols_list, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a list of prices for the given symbols.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with quotes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def batch_quote_prices(self, symbols_list, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Returns a list of prices for the given symbols.
+    
+    Args:
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with quotes.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/quote/{}&#39;.format(BASE_URL_V3, self._merge_symbols_for_url(symbols_list))
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.batch_request_end_of_day_prices"><code class="name flex">
+<span>def <span class="ident">batch_request_end_of_day_prices</span></span>(<span>self, date)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a list of prices for the given symbols.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+A pandas.DataFrame with quotes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def batch_request_end_of_day_prices(self, date):
+    &#34;&#34;&#34;Returns a list of prices for the given symbols.
+    
+    Args:
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        A pandas.DataFrame with quotes.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/batch-request-end-of-day-prices&#39;.format(BASE_URL_V4)
+    payload = {
+        &#39;apikey&#39;: self._api_key, 
+        &#39;date&#39;: date
+    }
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;csv&#39;, return_type=&#39;df&#39;)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.cash_flow_statement"><code class="name flex">
+<span>def <span class="ident">cash_flow_statement</span></span>(<span>self, symbol, period='annual', limit=None, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List of historical balance sheets for the symbol.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+<dt><strong><code>period</code></strong> :&ensp;<code>str</code></dt>
+<dd>'annual' | 'quarter'.</dd>
+<dt><strong><code>limit</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum number of periods to return.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the cash flow statements.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cash_flow_statement(self, symbol, period=&#39;annual&#39;, limit=None, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;List of historical balance sheets for the symbol.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+        period (str): &#39;annual&#39; | &#39;quarter&#39;.
+        limit (int): Maximum number of periods to return.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the cash flow statements.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/cash-flow-statement/{}&#39;.format(BASE_URL_V3, symbol)
+    payload = {
+        &#39;apikey&#39;: self._api_key, 
+        &#39;period&#39;: period
+    }
+    if limit is not None:
+        payload[&#39;limit&#39;] = limit
+    response = requests.get(url=endpoint, params=payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.company_core_information"><code class="name flex">
+<span>def <span class="ident">company_core_information</span></span>(<span>self, symbol, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a company's core information.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the stocks peers.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def company_core_information(self, symbol, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Returns a company&#39;s core information.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the stocks peers.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/company-core-information&#39;.format(BASE_URL_V4)
+    payload = {
+        &#39;apikey&#39;: self._api_key, 
+        &#39;symbol&#39;: symbol
+    }
+    response = requests.get(url=endpoint, params=payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.company_outlook"><code class="name flex">
+<span>def <span class="ident">company_outlook</span></span>(<span>self, symbol)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a variety of current metrics on the given company.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+</dl>
+<p>Returns:
+A dict with the company's metrics.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def company_outlook(self, symbol):
+    &#34;&#34;&#34;Returns a variety of current metrics on the given company.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+
+    Returns: 
+        A dict with the company&#39;s metrics.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/company-outlook&#39;.format(BASE_URL_V4)
+    payload = {
+        &#39;apikey&#39;: self._api_key, 
+        &#39;symbol&#39;: symbol
+    }
+    response = requests.get(url=endpoint, params=payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=&#39;json&#39;)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.company_profile"><code class="name flex">
+<span>def <span class="ident">company_profile</span></span>(<span>self, symbol, return_type)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>General information about a company.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the company's profile information.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def company_profile(self, symbol, return_type):
+    &#34;&#34;&#34;General information about a company.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the company&#39;s profile information.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/profile/{}&#39;.format(BASE_URL_V3, symbol)
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.etf_list"><code class="name flex">
+<span>def <span class="ident">etf_list</span></span>(<span>self, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a list of available etf's, a subset of the symbols list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the etf list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def etf_list(self, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Returns a list of available etf&#39;s, a subset of the symbols list.
+    
+    Args:
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the etf list.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/etf/list&#39;.format(BASE_URL_V3)
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.financial_report_dates"><code class="name flex">
+<span>def <span class="ident">financial_report_dates</span></span>(<span>self, symbol, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns dates and links to data.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the report dates.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def financial_report_dates(self, symbol, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Returns dates and links to data.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the report dates.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/financial-reports-dates&#39;.format(BASE_URL_V4)
+    payload = {
+        &#39;apikey&#39;: self._api_key, 
+        &#39;symbol&#39;: symbol
+    }
+    response = requests.get(url=endpoint, params=payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.financial_statement_symbol_lists"><code class="name flex">
+<span>def <span class="ident">financial_statement_symbol_lists</span></span>(<span>self, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List of symbols that have financial statements.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df' depending on the desired return format.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the stock symbols.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def financial_statement_symbol_lists(self, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;List of symbols that have financial statements.
+    
+    Args:
+        return_type (str): &#39;json&#39; | &#39;df&#39; depending on the desired return format.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the stock symbols.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/financial-statement-symbol-lists&#39;.format(BASE_URL_V3)
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.historical_market_capitalization"><code class="name flex">
+<span>def <span class="ident">historical_market_capitalization</span></span>(<span>self, symbol, limit=None, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets the history of the company's market capitalization.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+<dt><strong><code>limit</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of days returned.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the historicals capitalizations.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def historical_market_capitalization(self, symbol, limit=None, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Gets the history of the company&#39;s market capitalization.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+        limit (int): Number of days returned.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the historicals capitalizations.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/historical-market-capitalization/{}&#39;.format(BASE_URL_V3, symbol)
+    payload = {
+        &#39;apikey&#39;: self._api_key
+    }
+    if limit is not None:
+        payload[&#39;limit&#39;] = limit
+    response = requests.get(url=endpoint, params=payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.historical_price_full"><code class="name flex">
+<span>def <span class="ident">historical_price_full</span></span>(<span>self, symbol, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets the full daily history for a symbol.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt>symbols (str | str list): Stock ticker symbol or symbols.</dt>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the stock history.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def historical_price_full(self, symbol, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Gets the full daily history for a symbol.
+    
+    Args:
+        symbols (str | str list): Stock ticker symbol or symbols.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the stock history.
+    &#34;&#34;&#34;
+    return self.historical_price_interval(symbol, &#39;1900-01-01&#39;, TODAY, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.historical_price_interval"><code class="name flex">
+<span>def <span class="ident">historical_price_interval</span></span>(<span>self, symbol, start_date, end_date=datetime.date(2022, 6, 12), return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets the stocks daily history from start_date to end_date.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt>symbols (str | str list): Stock ticker symbol or symbols.</dt>
+<dt><strong><code>start_date</code></strong> :&ensp;<code>str</code></dt>
+<dd>Start date of the range.</dd>
+<dt><strong><code>end_date</code></strong> :&ensp;<code>str</code></dt>
+<dd>End date of the range.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the stock history.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def historical_price_interval(self, symbol, start_date, end_date=TODAY, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Gets the stocks daily history from start_date to end_date.
+    
+    Args:
+        symbols (str | str list): Stock ticker symbol or symbols.
+        start_date (str): Start date of the range.
+        end_date (str): End date of the range.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the stock history.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/historical-price-full/{}&#39;.format(BASE_URL_V3, symbol)
+    payload = {
+        &#39;apikey&#39;: self._api_key, 
+        &#39;from&#39;: start_date, 
+        &#39;to&#39;: end_date
+    }
+    response = requests.get(url=endpoint, params=payload)
+    historical_json = response.json()[&#39;historical&#39;]
+    if (return_type == &#39;json&#39;):
+        return response.json()
+    elif (return_type == &#39;df&#39;):
+        return pd.DataFrame(historical_json)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.income_statement"><code class="name flex">
+<span>def <span class="ident">income_statement</span></span>(<span>self, symbol, period='annual', limit=None, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List of historical income statements for the symbol.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+<dt><strong><code>period</code></strong> :&ensp;<code>str</code></dt>
+<dd>'annual' | 'quarter'.</dd>
+<dt><strong><code>limit</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum number of periods to return.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the income statements.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def income_statement(self, symbol, period=&#39;annual&#39;, limit=None, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;List of historical income statements for the symbol.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+        period (str): &#39;annual&#39; | &#39;quarter&#39;.
+        limit (int): Maximum number of periods to return.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the income statements.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/income-statement/{}&#39;.format(BASE_URL_V3, symbol)
+    payload = {
+        &#39;apikey&#39;: self._api_key, 
+        &#39;period&#39;: period
+    }
+    if limit is not None:
+        payload[&#39;limit&#39;] = limit
+    response = requests.get(url=endpoint, params=payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.is_the_market_open"><code class="name flex">
+<span>def <span class="ident">is_the_market_open</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the hours that the market is open and which markets currently are.</p>
+<p>Returns:
+A dict with information about the market hours.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_the_market_open(self):
+    &#34;&#34;&#34;Returns the hours that the market is open and which markets currently are.
+    
+    Returns: 
+        A dict with information about the market hours.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/is-the-market-open&#39;.format(BASE_URL_V3)
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=&#39;json&#39;)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.key_executives"><code class="name flex">
+<span>def <span class="ident">key_executives</span></span>(<span>self, symbol, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Information about company executives.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the executive information.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def key_executives(self, symbol, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Information about company executives.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the executive information.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/key-executives/{}&#39;.format(BASE_URL_V3, symbol)
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.market_capitalization"><code class="name flex">
+<span>def <span class="ident">market_capitalization</span></span>(<span>self, symbol, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets the symbols market capitalization.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the market cap.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def market_capitalization(self, symbol, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Gets the symbols market capitalization.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the market cap.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/market-capitalization/{}&#39;.format(BASE_URL_V3, symbol)
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.otc_quote"><code class="name flex">
+<span>def <span class="ident">otc_quote</span></span>(<span>self, symbols, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets the most recent price quote for one or more OTC stock symbols.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt>symbols (str | str list): Stock ticker symbol or symbols.</dt>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the stock quotes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def otc_quote(self, symbols, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Gets the most recent price quote for one or more OTC stock symbols.
+    
+    Args:
+        symbols (str | str list): Stock ticker symbol or symbols.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the stock quotes.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/otc/real-time-price/{}&#39;.format(BASE_URL_V3, self._merge_symbols_for_url(symbols))
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.quote"><code class="name flex">
+<span>def <span class="ident">quote</span></span>(<span>self, symbols, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets the most recent price quote for one or more stock symbols.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt>symbols (str | str list): Stock ticker symbol or symbols.</dt>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the stock quotes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quote(self, symbols, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Gets the most recent price quote for one or more stock symbols.
+    
+    Args:
+        symbols (str | str list): Stock ticker symbol or symbols.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the stock quotes.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/quote/{}&#39;.format(BASE_URL_V3, self._merge_symbols_for_url(symbols))
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.stock_peers"><code class="name flex">
+<span>def <span class="ident">stock_peers</span></span>(<span>self, symbol, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stock peers based on sector, exchange and market cap.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>str</code></dt>
+<dd>Stock ticker symbol.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the stocks peers.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stock_peers(self, symbol, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Stock peers based on sector, exchange and market cap.
+    
+    Args:
+        symbol (str): Stock ticker symbol.
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the stocks peers.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/stock_peers&#39;.format(BASE_URL_V4)
+    payload = {
+        &#39;apikey&#39;: self._api_key, 
+        &#39;symbol&#39;: symbol
+    }
+    response = requests.get(url=endpoint, params=payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.symbols_list"><code class="name flex">
+<span>def <span class="ident">symbols_list</span></span>(<span>self, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a list of available symbols with their full names, exchanges, and prices.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the symbols list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def symbols_list(self, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Returns a list of available symbols with their full names, exchanges, and prices.
+    
+    Args:
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the symbols list.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/stock/list&#39;.format(BASE_URL_V3)
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+<dt id="fmp.FMPClient.tradable_symbols_list"><code class="name flex">
+<span>def <span class="ident">tradable_symbols_list</span></span>(<span>self, return_type='json')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a list of tradable symbols.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>'json' | 'df'.</dd>
+</dl>
+<p>Returns:
+Either a list or pandas.DataFrame with the symbols list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def tradable_symbols_list(self, return_type=&#39;json&#39;):
+    &#34;&#34;&#34;Returns a list of tradable symbols.
+    
+    Args:
+        return_type (str): &#39;json&#39; | &#39;df&#39;.
+
+    Returns: 
+        Either a list or pandas.DataFrame with the symbols list.
+    &#34;&#34;&#34;
+    endpoint = r&#39;{}/available-traded/list&#39;.format(BASE_URL_V3)
+    response = requests.get(url=endpoint, params=self._empty_payload)
+    return self._convert_response(response, response_type=&#39;json&#39;, return_type=return_type)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="fmp.FMPClient" href="#fmp.FMPClient">FMPClient</a></code></h4>
+<ul class="">
+<li><code><a title="fmp.FMPClient.balance_sheet_statement" href="#fmp.FMPClient.balance_sheet_statement">balance_sheet_statement</a></code></li>
+<li><code><a title="fmp.FMPClient.batch_quote_prices" href="#fmp.FMPClient.batch_quote_prices">batch_quote_prices</a></code></li>
+<li><code><a title="fmp.FMPClient.batch_request_end_of_day_prices" href="#fmp.FMPClient.batch_request_end_of_day_prices">batch_request_end_of_day_prices</a></code></li>
+<li><code><a title="fmp.FMPClient.cash_flow_statement" href="#fmp.FMPClient.cash_flow_statement">cash_flow_statement</a></code></li>
+<li><code><a title="fmp.FMPClient.company_core_information" href="#fmp.FMPClient.company_core_information">company_core_information</a></code></li>
+<li><code><a title="fmp.FMPClient.company_outlook" href="#fmp.FMPClient.company_outlook">company_outlook</a></code></li>
+<li><code><a title="fmp.FMPClient.company_profile" href="#fmp.FMPClient.company_profile">company_profile</a></code></li>
+<li><code><a title="fmp.FMPClient.etf_list" href="#fmp.FMPClient.etf_list">etf_list</a></code></li>
+<li><code><a title="fmp.FMPClient.financial_report_dates" href="#fmp.FMPClient.financial_report_dates">financial_report_dates</a></code></li>
+<li><code><a title="fmp.FMPClient.financial_statement_symbol_lists" href="#fmp.FMPClient.financial_statement_symbol_lists">financial_statement_symbol_lists</a></code></li>
+<li><code><a title="fmp.FMPClient.historical_market_capitalization" href="#fmp.FMPClient.historical_market_capitalization">historical_market_capitalization</a></code></li>
+<li><code><a title="fmp.FMPClient.historical_price_full" href="#fmp.FMPClient.historical_price_full">historical_price_full</a></code></li>
+<li><code><a title="fmp.FMPClient.historical_price_interval" href="#fmp.FMPClient.historical_price_interval">historical_price_interval</a></code></li>
+<li><code><a title="fmp.FMPClient.income_statement" href="#fmp.FMPClient.income_statement">income_statement</a></code></li>
+<li><code><a title="fmp.FMPClient.is_the_market_open" href="#fmp.FMPClient.is_the_market_open">is_the_market_open</a></code></li>
+<li><code><a title="fmp.FMPClient.key_executives" href="#fmp.FMPClient.key_executives">key_executives</a></code></li>
+<li><code><a title="fmp.FMPClient.market_capitalization" href="#fmp.FMPClient.market_capitalization">market_capitalization</a></code></li>
+<li><code><a title="fmp.FMPClient.otc_quote" href="#fmp.FMPClient.otc_quote">otc_quote</a></code></li>
+<li><code><a title="fmp.FMPClient.quote" href="#fmp.FMPClient.quote">quote</a></code></li>
+<li><code><a title="fmp.FMPClient.stock_peers" href="#fmp.FMPClient.stock_peers">stock_peers</a></code></li>
+<li><code><a title="fmp.FMPClient.symbols_list" href="#fmp.FMPClient.symbols_list">symbols_list</a></code></li>
+<li><code><a title="fmp.FMPClient.tradable_symbols_list" href="#fmp.FMPClient.tradable_symbols_list">tradable_symbols_list</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
