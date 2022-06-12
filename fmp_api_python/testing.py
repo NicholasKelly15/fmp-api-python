@@ -13,6 +13,8 @@ import requests
 
 client = FMPClient()
 
-response = client.income_statement(symbol='AAPL', return_type='json')
+# response = client.historical_price_interval('AAPL', start_date='2020-01-01', return_type='df')
+response = client.historical_price_full('AAPL', 'df')
+
 print(response)
 print(type(response))
