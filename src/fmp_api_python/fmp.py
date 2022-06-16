@@ -9,6 +9,7 @@ pip install fmp_api_python
 """
 
 
+from http.client import OK, TOO_MANY_REQUESTS
 import requests
 import os
 import csv
@@ -16,6 +17,13 @@ import pandas as pd
 
 from fmp_api_python.constants import BASE_URL_V3, BASE_URL_V4
 from fmp_api_python.constants import TODAY
+
+
+class TooManyRequestsException(requests.RequestException):
+    """Raised when a 429 too many requests error was returned by the API."""
+    
+    def __init__(self):
+        super().__init__('The FMP API rate limit was exceeded')
 
 
 class FMPClient:
@@ -34,14 +42,13 @@ class FMPClient:
         api_key (str): FMP API key.
     """
 
-
     def __init__(self, api_key=None):
         self._api_key = api_key or os.getenv('FMP_API_KEY')
         self._empty_payload = {
             'apikey': self._api_key
         }
 
-    def _convert_response(self, response, response_type, return_type):
+    def _process_response(self, response, response_type, return_type):
         """Converts the response from the API into the given response type.
         
         Args:
@@ -51,7 +58,18 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the response content.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
+        if (response.status_code == TOO_MANY_REQUESTS):
+            raise TooManyRequestsException()
+        elif (response.status_code != OK):
+            raise requests.RequestException()
+
         if (response_type == 'json'):
             content = response.json()
 
@@ -64,7 +82,7 @@ class FMPClient:
             content = list(csv.reader(response.content.decode('utf-8').splitlines(), delimiter=','))
 
             if (return_type == 'df'):
-                df = pd.DataFrame(list(content), )
+                df = pd.DataFrame(list(content))
                 df = df.rename(columns=df.iloc[0], inplace=False).loc[1:]
                 return df
             elif (return_type == 'json'):
@@ -91,10 +109,16 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the stock symbols.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/financial-statement-symbol-lists'.format(BASE_URL_V3)
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def income_statement(self, symbol, period='annual', limit=None, return_type='json'):
         """List of historical income statements for the symbol.
@@ -107,6 +131,12 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the income statements.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/income-statement/{}'.format(BASE_URL_V3, symbol)
         payload = {
@@ -116,7 +146,7 @@ class FMPClient:
         if limit is not None:
             payload['limit'] = limit
         response = requests.get(url=endpoint, params=payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def balance_sheet_statement(self, symbol, period='annual', limit=None, return_type='json'):
         """List of historical balance sheets for the symbol.
@@ -129,6 +159,12 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the balance sheets.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/balance-sheet-statement/{}'.format(BASE_URL_V3, symbol)
         payload = {
@@ -138,7 +174,7 @@ class FMPClient:
         if limit is not None:
             payload['limit'] = limit
         response = requests.get(url=endpoint, params=payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def cash_flow_statement(self, symbol, period='annual', limit=None, return_type='json'):
         """List of historical balance sheets for the symbol.
@@ -151,6 +187,12 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the cash flow statements.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/cash-flow-statement/{}'.format(BASE_URL_V3, symbol)
         payload = {
@@ -160,7 +202,7 @@ class FMPClient:
         if limit is not None:
             payload['limit'] = limit
         response = requests.get(url=endpoint, params=payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def financial_report_dates(self, symbol, return_type='json'):
         """Returns dates and links to data.
@@ -171,6 +213,12 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the report dates.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/financial-reports-dates'.format(BASE_URL_V4)
         payload = {
@@ -178,7 +226,7 @@ class FMPClient:
             'symbol': symbol
         }
         response = requests.get(url=endpoint, params=payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     """------- STOCK FUNDAMENTAL ANALYSIS -------"""
 
@@ -204,7 +252,7 @@ class FMPClient:
 
     """------- COMPANY INFORMATION -------"""
 
-    def company_profile(self, symbol, return_type):
+    def company_profile(self, symbol, return_type='json'):
         """General information about a company.
         
         Args:
@@ -213,10 +261,16 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the company's profile information.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/profile/{}'.format(BASE_URL_V3, symbol)
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def key_executives(self, symbol, return_type='json'):
         """Information about company executives.
@@ -227,10 +281,16 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the executive information.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/key-executives/{}'.format(BASE_URL_V3, symbol)
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def market_capitalization(self, symbol, return_type='json'):
         """Gets the symbols market capitalization.
@@ -241,10 +301,16 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the market cap.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/market-capitalization/{}'.format(BASE_URL_V3, symbol)
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def historical_market_capitalization(self, symbol, limit=None, return_type='json'):
         """Gets the history of the company's market capitalization.
@@ -256,6 +322,12 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the historicals capitalizations.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/historical-market-capitalization/{}'.format(BASE_URL_V3, symbol)
         payload = {
@@ -264,7 +336,7 @@ class FMPClient:
         if limit is not None:
             payload['limit'] = limit
         response = requests.get(url=endpoint, params=payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def company_outlook(self, symbol):
         """Returns a variety of current metrics on the given company.
@@ -274,6 +346,12 @@ class FMPClient:
 
         Returns: 
             A dict with the company's metrics.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/company-outlook'.format(BASE_URL_V4)
         payload = {
@@ -281,7 +359,7 @@ class FMPClient:
             'symbol': symbol
         }
         response = requests.get(url=endpoint, params=payload)
-        return self._convert_response(response, response_type='json', return_type='json')
+        return self._process_response(response, response_type='json', return_type='json')
 
     def stock_peers(self, symbol, return_type='json'):
         """Stock peers based on sector, exchange and market cap.
@@ -292,6 +370,12 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the stocks peers.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/stock_peers'.format(BASE_URL_V4)
         payload = {
@@ -299,17 +383,23 @@ class FMPClient:
             'symbol': symbol
         }
         response = requests.get(url=endpoint, params=payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def is_the_market_open(self):
         """Returns the hours that the market is open and which markets currently are.
         
         Returns: 
             A dict with information about the market hours.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/is-the-market-open'.format(BASE_URL_V3)
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type='json')
+        return self._process_response(response, response_type='json', return_type='json')
 
     def company_core_information(self, symbol, return_type='json'):
         """Returns a company's core information.
@@ -320,6 +410,12 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the stocks peers.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/company-core-information'.format(BASE_URL_V4)
         payload = {
@@ -327,7 +423,7 @@ class FMPClient:
             'symbol': symbol
         }
         response = requests.get(url=endpoint, params=payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     """------- STOCK NEWS -------"""
 
@@ -352,10 +448,16 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the stock quotes.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/quote/{}'.format(BASE_URL_V3, self._merge_symbols_for_url(symbols))
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def otc_quote(self, symbols, return_type='json'):
         """Gets the most recent price quote for one or more OTC stock symbols.
@@ -366,10 +468,16 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the stock quotes.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/otc/real-time-price/{}'.format(BASE_URL_V3, self._merge_symbols_for_url(symbols))
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def historical_price_interval(self, symbol, start_date, end_date=TODAY, return_type='json'):
         """Gets the stocks daily history from start_date to end_date.
@@ -381,7 +489,14 @@ class FMPClient:
             return_type (str): 'json' | 'df'.
 
         Returns: 
-            Either a list or pandas.DataFrame with the stock history.
+            Either a list or pandas.DataFrame with the stock history. Returns 
+                an empty list or empty pandas.DataFrame if the API did not return any history.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/historical-price-full/{}'.format(BASE_URL_V3, symbol)
         payload = {
@@ -390,11 +505,24 @@ class FMPClient:
             'to': end_date
         }
         response = requests.get(url=endpoint, params=payload)
-        historical_json = response.json()['historical']
-        if (return_type == 'json'):
-            return response.json()
-        elif (return_type == 'df'):
-            return pd.DataFrame(historical_json)
+        processed_json = self._process_response(response, response_type='json', return_type='json')
+        
+        if (processed_json == {}):
+            if (return_type == 'json'):
+                return {}
+            elif (return_type == 'df'):
+                return pd.DataFrame()
+        else:
+            return self._process_response(response, response_type='json', return_type=return_type)
+
+        # try:
+        #     historical_json = response.json()['historical']
+        # except:
+        #     return None
+        # if (return_type == 'json'):
+        #     return response.json()
+        # elif (return_type == 'df'):
+        #     return pd.DataFrame(historical_json)
 
     def historical_price_full(self, symbol, return_type='json'):
         """Gets the full daily history for a symbol.
@@ -405,6 +533,12 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the stock history.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         return self.historical_price_interval(symbol, '1900-01-01', TODAY, return_type=return_type)
 
@@ -422,10 +556,16 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the symbols list.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/stock/list'.format(BASE_URL_V3)
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def tradable_symbols_list(self, return_type='json'):
         """Returns a list of tradable symbols.
@@ -435,10 +575,16 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the symbols list.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/available-traded/list'.format(BASE_URL_V3)
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def etf_list(self, return_type='json'):
         """Returns a list of available etf's, a subset of the symbols list.
@@ -448,10 +594,16 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with the etf list.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/etf/list'.format(BASE_URL_V3)
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     """------- BULK AND BATCH -------"""
 
@@ -463,10 +615,16 @@ class FMPClient:
 
         Returns: 
             Either a list or pandas.DataFrame with quotes.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/quote/{}'.format(BASE_URL_V3, self._merge_symbols_for_url(symbols_list))
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='json', return_type=return_type)
+        return self._process_response(response, response_type='json', return_type=return_type)
 
     def batch_request_end_of_day_prices(self, date):
         """Returns a list of prices for the given symbols.
@@ -476,6 +634,12 @@ class FMPClient:
 
         Returns: 
             A pandas.DataFrame with quotes.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
         """
         endpoint = r'{}/batch-request-end-of-day-prices'.format(BASE_URL_V4)
         payload = {
@@ -483,7 +647,7 @@ class FMPClient:
             'date': date
         }
         response = requests.get(url=endpoint, params=self._empty_payload)
-        return self._convert_response(response, response_type='csv', return_type='df')
+        return self._process_response(response, response_type='csv', return_type='df')
 
     """------- MARKET INDEXES -------"""
 
