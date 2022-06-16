@@ -513,7 +513,12 @@ class FMPClient:
             elif (return_type == 'df'):
                 return pd.DataFrame()
         else:
-            return self._process_response(response, response_type='json', return_type=return_type)
+            content = response.json()['historical']
+
+            if (return_type == 'json'):
+                return content
+            elif (return_type == 'df'):
+                return pd.DataFrame(content)
 
         # try:
         #     historical_json = response.json()['historical']
