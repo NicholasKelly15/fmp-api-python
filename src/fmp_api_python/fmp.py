@@ -463,7 +463,7 @@ class FMPClient:
         """Gets the most recent price quote for one or more OTC stock symbols.
         
         Args:
-            symbols (str | str list): Stock ticker symbol or symbols.
+            symbols (str): Stock ticker symbol.
             return_type (str): 'json' | 'df'.
 
         Returns: 
@@ -480,10 +480,10 @@ class FMPClient:
         return self._process_response(response, response_type='json', return_type=return_type)
 
     def historical_price_interval(self, symbol, start_date, end_date=TODAY, return_type='json'):
-        """Gets the stocks daily history from start_date to end_date.
+        """Gets the symbol's daily history from start_date to end_date.
         
         Args:
-            symbols (str | str list): Stock ticker symbol or symbols.
+            symbols (str): Stock/ETF/FX/Commodity ticker symbol.
             start_date (str): Start date of the range.
             end_date (str): End date of the range.
             return_type (str): 'json' | 'df'.
@@ -533,7 +533,7 @@ class FMPClient:
         """Gets the full daily history for a symbol.
         
         Args:
-            symbols (str | str list): Stock ticker symbol or symbols.
+            symbols (str): Stock ticker symbol.
             return_type (str): 'json' | 'df'.
 
         Returns: 
@@ -661,3 +661,60 @@ class FMPClient:
     """------- TSX -------"""
 
     """------- CRYPTO & FOREX & COMMODITIES -------"""
+
+    def available_cryptocurrencies(self, return_type='json'):
+        """List of cryptocurrencies available.
+        
+        Args:
+            return_type (str): 'json' | 'df' depending on the desired return format.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the crypto symbols.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
+        """
+        endpoint = r'{}/symbol/available-cryptocurrencies'.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._process_response(response, response_type='json', return_type=return_type)
+
+    def available_forex_currency_pairs(self, return_type='json'):
+        """List of forex exchange pairs avaiable.
+        
+        Args:
+            return_type (str): 'json' | 'df' depending on the desired return format.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the forex symbols.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
+        """
+        endpoint = r'{}/symbol/available-forex-currency-pairs'.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._process_response(response, response_type='json', return_type=return_type)
+
+    def available_commodities(self, return_type='json'):
+        """List of commodities.
+        
+        Args:
+            return_type (str): 'json' | 'df' depending on the desired return format.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the commodity symbols.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
+        """
+        endpoint = r'{}/symbol/available-commodities'.format(BASE_URL_V3)
+        response = requests.get(url=endpoint, params=self._empty_payload)
+        return self._process_response(response, response_type='json', return_type=return_type)
