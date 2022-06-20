@@ -230,6 +230,34 @@ class FMPClient:
 
     """------- STOCK FUNDAMENTAL ANALYSIS -------"""
 
+    def financial_ratios(self, symbol, period='annual', limit=None, return_type='json'):
+        """List of historical financial ratios for the symbol.
+        
+        Args:
+            symbol (str): Stock ticker symbol.
+            period (str): 'annual' | 'quarter'.
+            limit (int): Maximum number of periods to return.
+            return_type (str): 'json' | 'df'.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the ratios.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
+        """
+        endpoint = r'{}/ratios/{}'.format(BASE_URL_V3, symbol)
+        payload = {
+            'apikey': self._api_key, 
+            'period': period
+        }
+        if limit is not None:
+            payload['limit'] = limit
+        response = requests.get(url=endpoint, params=payload)
+        return self._process_response(response, response_type='json', return_type=return_type)
+
     """------- INSTITUTIONAL STOCK OWNERSHIP -------"""
 
     """------- ESG SCORE -------"""
@@ -437,6 +465,33 @@ class FMPClient:
 
     """------- ECONOMICS -------"""
 
+    def treasury_rates(self, start_date, end_date, return_type='json'):
+        """Gets the treasury yields for different periods. Only gives 3 months data max.
+        
+        Args:
+            start_date (str): Start date of the range.
+            end_date (str): End date of the range.
+            return_type (str): 'json' | 'df'.
+
+        Returns: 
+            Either a list or pandas.DataFrame with the treasury yields.
+
+        Raises:
+            fmp_api_python.fmp.TooManyRequestsException: This is returned 
+                after a 429 response by the API.
+            requests.RequestException: Returned if any status code other than 200 
+                is returned by the API. 
+        """
+        endpoint = r'{}/treasury'.format(BASE_URL_V4)
+        payload = {
+            'apikey': self._api_key, 
+            'from': start_date, 
+            'to': end_date
+        }
+        response = requests.get(url=endpoint, params=payload)
+        return self._process_response(response, response_type='json', return_type=return_type)
+        
+
     """------- STOCK PRICE -------"""
 
     def quote(self, symbols, return_type='json'):
@@ -519,15 +574,6 @@ class FMPClient:
                 return content
             elif (return_type == 'df'):
                 return pd.DataFrame(content)
-
-        # try:
-        #     historical_json = response.json()['historical']
-        # except:
-        #     return None
-        # if (return_type == 'json'):
-        #     return response.json()
-        # elif (return_type == 'df'):
-        #     return pd.DataFrame(historical_json)
 
     def historical_price_full(self, symbol, return_type='json'):
         """Gets the full daily history for a symbol.
@@ -651,7 +697,7 @@ class FMPClient:
             'apikey': self._api_key, 
             'date': date
         }
-        response = requests.get(url=endpoint, params=self._empty_payload)
+        response = requests.get(url=endpoint, params=payload)
         return self._process_response(response, response_type='csv', return_type='df')
 
     """------- MARKET INDEXES -------"""
